@@ -1,0 +1,17 @@
+# Base configuration for the testing framework
+api:
+  timeout: 30
+  retry_attempts: 3
+  retry_delay: 1
+  # External APIs
+  api_ninjas:
+    base_url: "https://api.api-ninjas.com"
+
+allure:
+  results_dir: "reports/allure-results"
+  report_dir: "reports/allure-report"
+  title: "API Test Results"
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
