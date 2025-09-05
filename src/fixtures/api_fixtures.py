@@ -3,10 +3,9 @@ API-specific fixtures
 """
 import pytest
 from src.api.client import APIClient
-from typing import Optional
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="session")
 def api_client_factory(config):
     def create_client(service_name=None, base_url=None, api_key=None):
         if service_name:
@@ -17,10 +16,10 @@ def api_client_factory(config):
         else:
             url = base_url
             key = api_key
-        
+
         client = APIClient(url)
         if key:
             client.set_api_key(key)
         return client
-    
+
     return create_client

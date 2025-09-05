@@ -15,9 +15,7 @@ Automated testing framework for API Ninjas Cars API using Python, pytest, and JS
 
 1. **Clone and setup**
    ```bash
-   git clone <repository-url>
-   cd cars-api-tests
-   python -m venv venv
+   python3.12 -m venv venv
    source venv/bin/activate
    pip install -r requirements.txt
    ```
@@ -66,10 +64,6 @@ from src.api.schemas import CARS_RESPONSE_SCHEMA
 jsonschema.validate(cars_data, CARS_RESPONSE_SCHEMA)
 ```
 
-## 🚀 CI/CD
-
-Add `API_NINJAS_KEY` secret to GitHub repository. CI runs on push/PR.
-
 ## 📚 Best Practices
 
 1. Use factory pattern for API clients
@@ -77,3 +71,61 @@ Add `API_NINJAS_KEY` secret to GitHub repository. CI runs on push/PR.
 3. Keep secrets in .env (not in git)
 4. Use Allure steps for better reporting
 5. Group related tests in classes
+
+## 🐛 Debugging
+
+### VS Code Debug Configuration
+
+Create a `.vscode` directory in your project root and add the following `launch.json` configuration:
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Python: pytest",
+        "type": "debugpy",
+        "request": "launch",
+        "module": "pytest",
+        "args": [
+          "${file}"
+        ],
+        "console": "integratedTerminal"
+      }
+    ]
+}
+```
+
+## 🔧 Code Quality
+
+### Black (Code Formatter)
+Black automatically formats your Python code to ensure consistent style:
+
+```bash
+# Format all Python files
+black .
+
+# Check formatting without making changes
+black --check .
+
+# Format specific directory
+black src/ tests/
+```
+
+### Flake8 (Linter)
+Flake8 analyzes your code for errors and style issues:
+
+```bash
+# Lint all Python files
+flake8 .
+
+# Lint specific directories
+flake8 src/ tests/
+
+```
+
+## 📊 Test Reports
+
+**Live Allure Report**: [https://yasnowitzz.github.io/testing-framework/allure-report/]
+
+
