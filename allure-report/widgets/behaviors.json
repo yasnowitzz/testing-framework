@@ -1,1 +1,1 @@
-{"total":0,"items":[]}
+{"total":2,"items":[{"uid":"298a43e868fdd2219bf9033844c93213","name":"VIN API","statistic":{"failed":0,"broken":0,"skipped":0,"passed":5,"unknown":0,"total":5}},{"uid":"04ebf0f91258a4a8bbb1d97df6800728","name":"Cars API","statistic":{"failed":0,"broken":0,"skipped":1,"passed":4,"unknown":0,"total":5}}]}
