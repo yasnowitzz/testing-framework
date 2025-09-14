@@ -4,17 +4,13 @@ API Cars Tests - Testing API Ninjas Cars API
 import pytest
 import allure
 from src.api.endpoints import APIEndpoints
+from src.api.client import APIClient
 from src.api.schemas import validate_vin_response
 
 
 @allure.feature("VIN API")
 class TestVINAPI:
     """Test VIN API functionality from API Ninjas"""
-
-    @pytest.fixture(scope="class")
-    def api_ninjas(self, api_client_factory):
-        """API client for API Ninjas - created once per class"""
-        return api_client_factory("api_ninjas")
 
     @allure.story("VIN endpoint returns data in the same structure as sample VINs")
     @pytest.mark.api
@@ -68,8 +64,8 @@ class TestVINAPI:
 
     @allure.story("VIN endpoint needs authentication api key")
     @pytest.mark.api
-    def test_vin_endpoint_needs_authentication_api_key(self, api_client_factory):
-        api_ninjas = api_client_factory("api_ninjas")
+    def test_vin_endpoint_needs_authentication_api_key(self, config):
+        api_ninjas = APIClient(base_url=config.api_ninjas.base_url)
 
         with allure.step("Missing api key"):
             response = api_ninjas.get(
@@ -81,8 +77,8 @@ class TestVINAPI:
 
     @allure.story("VIN endpoint needs valid api key")
     @pytest.mark.api
-    def test_vin_endpoint_needs_valid_api_key(self, api_client_factory):
-        api_ninjas = api_client_factory(service_name="api_ninjas")
+    def test_vin_endpoint_needs_valid_api_key(self, config):
+        api_ninjas = APIClient(base_url=config.api_ninjas.base_url)
         api_ninjas.set_api_key("invalid")
 
         with allure.step("Invalid api key"):

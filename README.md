@@ -6,8 +6,6 @@ Automated testing framework for API Ninjas Cars API using Python, pytest, and JS
 
 - **API Testing**: REST API testing with requests library
 - **JSON Schema Validation**: Contract validation with jsonschema
-- **Flexible Configuration**: YAML + .env configuration system
-- **Factory Pattern**: Easy API client creation for multiple services
 - **Allure Reporting**: Beautiful test reports
 - **CI/CD**: GitHub Actions integration
 
@@ -108,8 +106,6 @@ black .
 # Check formatting without making changes
 black --check .
 
-# Format specific directory
-black src/ tests/
 ```
 
 ### Flake8 (Linter)
@@ -118,9 +114,6 @@ Flake8 analyzes your code for errors and style issues:
 ```bash
 # Lint all Python files
 flake8 .
-
-# Lint specific directories
-flake8 src/ tests/
 
 ```
 

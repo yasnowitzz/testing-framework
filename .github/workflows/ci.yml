@@ -30,10 +30,9 @@ jobs:
         pip install -r requirements.txt
 
     - name: Lint with flake8
-      run: flake8 src/ tests/ --max-line-length=100
-
+      run: flake8 . --extend-ignore=E501
     - name: Format check with black
-      run: black --check src/ tests/
+      run: black --check .
     
     - name: Run API tests
       run: |

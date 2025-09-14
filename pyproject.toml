@@ -1,0 +1,22 @@
+[tool.black]
+line-length = 88
+target-version = ['py312']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.github
+  | venv
+)/
+'''
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503", "E501"]
+exclude = [
+    ".github",
+    "__pycache__",
+    ".vscode",
+    ".pytest_cache",
+    "venv"
+]

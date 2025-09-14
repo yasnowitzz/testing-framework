@@ -5,14 +5,11 @@ import pytest
 import allure
 from src.api.endpoints import APIEndpoints
 from src.api.schemas import validate_cars_response
+from src.api.client import APIClient
 
 
 @allure.feature("Cars API")
 class TestCarsAPI:
-    @pytest.fixture(scope="class")
-    def api_ninjas(self, api_client_factory):
-        return api_client_factory("api_ninjas")
-
     @allure.story("Each car must have a specified make and model")
     @pytest.mark.api
     @pytest.mark.xfail(reason="Known issue: API returns 400 instead of 200")
@@ -46,7 +43,7 @@ class TestCarsAPI:
             assert len(cars_data) > 0
             validate_cars_response(cars_data)
 
-            # Verify car data every toyota from 2023 has a value for the displacement field
+            # Verify every toyota from 2023 has a value for the displacement field
             for car in cars_data:
                 assert "displacement" in car
                 assert car["displacement"] is not None
@@ -54,11 +51,11 @@ class TestCarsAPI:
                 assert car["year"] == 2023
 
     @allure.story(
-        "All Toyota, Lexus, and Hyundai electric cars must not include cylinder information"
+        "Electric cars must not include cylinder information"
     )
     @pytest.mark.api
     @pytest.mark.parametrize("make", [("Toyota"), ("Lexus"), ("Hyundai")])
-    def test_all_toyota_lexus_and_hyundai_electric_cars_must_not_include_cylinder_information(
+    def test_electric_cars_must_not_include_cylinder_information(
         self, api_ninjas, make
     ):
         with allure.step(f"Search for all {make} electric cars"):
@@ -82,8 +79,8 @@ class TestCarsAPI:
 
     @allure.story("Cars endpoint needs authentication api key")
     @pytest.mark.api
-    def test_cars_endpoint_needs_authentication_api_key(self, api_client_factory):
-        api_ninjas = api_client_factory("api_ninjas")
+    def test_cars_endpoint_needs_authentication_api_key(self, config):
+        api_ninjas = APIClient(base_url=config.api_ninjas.base_url)
 
         with allure.step("Missing api key"):
             response = api_ninjas.get(APIEndpoints.CARS, use_auth=False)
@@ -93,8 +90,8 @@ class TestCarsAPI:
 
     @allure.story("Cars endpoint needs valid api key")
     @pytest.mark.api
-    def test_cars_endpoint_needs_valid_api_key(self, api_client_factory):
-        api_ninjas = api_client_factory(service_name="api_ninjas")
+    def test_cars_endpoint_needs_valid_api_key(self, config):
+        api_ninjas = APIClient(base_url=config.api_ninjas.base_url)
         api_ninjas.set_api_key("invalid")
 
         with allure.step("Invalid api key"):
