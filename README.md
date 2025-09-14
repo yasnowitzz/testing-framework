@@ -64,11 +64,10 @@ jsonschema.validate(cars_data, CARS_RESPONSE_SCHEMA)
 
 ## 📚 Best Practices
 
-1. Use factory pattern for API clients
-2. Validate contracts with JSON Schema
-3. Keep secrets in .env (not in git)
-4. Use Allure steps for better reporting
-5. Group related tests in classes
+1. Validate contracts with JSON Schema
+2. Keep secrets in .env (not in git)
+3. Use Allure steps for better reporting
+4. Group related tests in classes
 
 ## 🐛 Debugging
 

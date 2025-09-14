@@ -50,9 +50,7 @@ class TestCarsAPI:
                 assert car["make"].lower() == "toyota"
                 assert car["year"] == 2023
 
-    @allure.story(
-        "Electric cars must not include cylinder information"
-    )
+    @allure.story("Electric cars must not include cylinder information")
     @pytest.mark.api
     @pytest.mark.parametrize("make", [("Toyota"), ("Lexus"), ("Hyundai")])
     def test_electric_cars_must_not_include_cylinder_information(
